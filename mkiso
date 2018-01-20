@@ -1,0 +1,11 @@
+#!/bin/bash
+#******* Author: Josh Pickard distraxdevel@gmail.com*********
+#******* Date: 1/18/18	***********
+#** Creating a bootable ISO easily *** 
+
+echo 'Choose ISO image: '
+read src
+echo 'Choose Destination Device: '
+read dest
+pv "$src" | sudo dd of="$dest" bs=8M && sync
+echo 'Your bootable image has been created '
