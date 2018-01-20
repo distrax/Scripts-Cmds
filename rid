@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#********Author:	Josh Pickard @ Distraxdevel@gmail.com
+#********Born on:	1/18/18
+
+if [ $1 == '-d' ] 
+then
+find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub'
+
+else
+find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub' -exec rm {} +
+
+find . -type d -empty -delete
+
+echo "This section has been weeded"
+fi
