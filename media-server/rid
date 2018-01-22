@@ -5,7 +5,7 @@
 #====	Author- Josh Pickard | distraxdevel@gmail | github.com/distrax
 #====	1/22/2018- My 31st birthday
 
-dirty="vids jams"
+dirty="vids jams quit"
 
 vids () {
 
@@ -18,15 +18,18 @@ find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -an
 echo "Would you like the listed files weeded from your video directories? y/n "
 read confirm
 
-if [[ $confirm == 'y' ]]
-then
+if [[ $confirm == 'y' ]]; then
 
 # Delete the listed files
 
 find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub' -exec rm {} + && find . -type f -iname '*sample*' -delete && find . -type d -empty -delete
 
 elif [[ $confirm != 'y' ]]
+then
 echo Aborted
+
+fi
+exit
 }
 
 jams () {
@@ -40,16 +43,22 @@ find . -type f ! -iname '*.flac' -and ! -iname '*.mp3' -and ! -iname '*.wav' -an
 echo "Would you like the listed files weeded from your audio directories? y/n "
 read confirm
 
-if [[ $confirm == 'y' ]]
-then
+if [[ $confirm == 'y' ]]; then
 
 # Delete the listed files
 find . -type f ! -iname '*.flac' -and ! -iname '*.mp3' -and ! -iname '*.wav' -and ! -iname '*.cue' -and ! -iname '*.wma' -and ! -iname '*.aif' -and ! -iname '*.m4a' -exec rm {} + && find . -type d -empty -delete
 
 elif [[ $confirm != 'y' ]]
+then
 echo Aborted
+fi
+exit
 }
 
+quit () {
+exit
+}
+echo Please select what kind of directory you\'re working in:
 select dir in $dirty
 do
 	$"$dir"
