@@ -1,16 +1,56 @@
 #!/bin/bash
 
-#********Author:	Josh Pickard @ Distraxdevel@gmail.com
-#********Born on:	1/18/18
+#==========================================================================
+#====	A more robust tool for cleaning and weeding media server directories that are organized into Video and Audio folders in some form. Ie. Movies, TV, Music, etc... 
+#====	Author- Josh Pickard | distraxdevel@gmail | github.com/distrax
+#====	1/22/2018- My 31st birthday
 
-if [ $1 == '-d' ] 
-then
+dirty="vids jams"
+
+vids () {
+
+# Display files to be deleted
+
 find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub'
 
-else
-find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub' -exec rm {} +
+# Confirm the deletion of all files listed
 
-find . -type d -empty -delete
+echo "Would you like the listed files weeded from your video directories? y/n "
+read confirm
 
-echo "This section has been weeded"
-fi
+if [[ $confirm == 'y' ]]
+then
+
+# Delete the listed files
+
+find . -type f ! -iname '*.avi' -and ! -iname '*.mp4' -and ! -iname '*.mpeg' -and ! -iname '*.mkv' -and ! -iname '*.m4v' -and ! -iname '*.srt' -and ! -iname '*.sub' -exec rm {} + && find . -type f -iname '*sample*' -delete && find . -type d -empty -delete
+
+elif [[ $confirm != 'y' ]]
+echo Aborted
+}
+
+jams () {
+
+# Display files to be deleted
+
+find . -type f ! -iname '*.flac' -and ! -iname '*.mp3' -and ! -iname '*.wav' -and ! -iname '*.cue' -and ! -iname '*.wma' -and ! -iname '*.aif' -and ! -iname '*.m4a'
+
+# Confirm the deletion of all files listed
+
+echo "Would you like the listed files weeded from your audio directories? y/n "
+read confirm
+
+if [[ $confirm == 'y' ]]
+then
+
+# Delete the listed files
+find . -type f ! -iname '*.flac' -and ! -iname '*.mp3' -and ! -iname '*.wav' -and ! -iname '*.cue' -and ! -iname '*.wma' -and ! -iname '*.aif' -and ! -iname '*.m4a' -exec rm {} + && find . -type d -empty -delete
+
+elif [[ $confirm != 'y' ]]
+echo Aborted
+}
+
+select dir in $dirty
+do
+	$"$dir"
+done
